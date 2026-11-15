@@ -49,6 +49,7 @@ class SupplyDropManager(
 ) {
     private val activeDrops = mutableListOf<ActiveSupplyDrop>()
     private var autoSpawnTask: BukkitTask? = null
+    val orphanStore = OrphanStore(plugin)
 
     fun updateConfig(newConfig: PluginConfig) {
         this.config = newConfig
@@ -124,6 +125,7 @@ class SupplyDropManager(
         )
 
         activeDrops.add(drop)
+        orphanStore.add(world.name, spawnLoc.blockX, spawnLoc.blockY, spawnLoc.blockZ)
 
         val formattedTime = TimeFormatter.formatDuration(config.durationSeconds)
         broadcastSpawn(world.name, spawnLoc.blockX, spawnLoc.blockY, spawnLoc.blockZ, formattedTime)
@@ -141,6 +143,10 @@ class SupplyDropManager(
 
     fun despawnDrop(drop: ActiveSupplyDrop, expired: Boolean = false, claimedBy: String? = null) {
         if (!activeDrops.remove(drop)) return
+        orphanStore.remove(
+            drop.location.world?.name ?: "",
+            drop.location.blockX, drop.location.blockY, drop.location.blockZ
+        )
 
         drop.countdownTask?.cancel()
         drop.countdownTask = null

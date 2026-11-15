@@ -8,6 +8,8 @@ import com.horus.supplydrops.drop.SupplyDropManager
 import com.horus.supplydrops.listener.SupplyDropListener
 import com.horus.supplydrops.loot.LootManager
 import net.kyori.adventure.text.minimessage.MiniMessage
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
+import net.kyori.adventure.text.minimessage.tag.standard.StandardTags
 import org.bukkit.plugin.java.JavaPlugin
 
 /**
@@ -15,12 +17,25 @@ import org.bukkit.plugin.java.JavaPlugin
  */
 class HorusSupplyDropsPlugin : JavaPlugin() {
 
-    private val miniMessage: MiniMessage = MiniMessage.miniMessage()
+    // Restricted MiniMessage: no <click>, <hover>, <insertion>, <key>... tags from config text.
+    private val miniMessage: MiniMessage = MiniMessage.builder()
+        .tags(
+            TagResolver.resolver(
+                StandardTags.color(),
+                StandardTags.decorations(),
+                StandardTags.gradient(),
+                StandardTags.rainbow(),
+                StandardTags.reset(),
+                StandardTags.newline()
+            )
+        )
+        .build()
     private lateinit var lootManager: LootManager
     private lateinit var supplyDropManager: SupplyDropManager
 
     override fun onEnable() {
         saveDefaultConfig()
+        restrictConfigPermissions()
 
         lootManager = LootManager(this, miniMessage)
         lootManager.load()
@@ -38,6 +53,8 @@ class HorusSupplyDropsPlugin : JavaPlugin() {
             config = pluginConfig
         )
         supplyDropManager.startAutoScheduler()
+        // Worlds are loaded by the next tick: clean containers left by a previous crash.
+        server.scheduler.runTask(this, Runnable { supplyDropManager.orphanStore.cleanup() })
 
         val commandHandler = SupplyDropCommand(this, supplyDropManager, miniMessage)
         getCommand("supplydrop")?.apply {
@@ -55,6 +72,16 @@ class HorusSupplyDropsPlugin : JavaPlugin() {
             supplyDropManager.stopAll()
         }
         logger.info("HorusSupplyDrops disabled.")
+    }
+
+    /** config.yml may contain the Discord webhook secret: make it owner-only where POSIX is supported. */
+    private fun restrictConfigPermissions() {
+        runCatching {
+            java.nio.file.Files.setPosixFilePermissions(
+                java.io.File(dataFolder, "config.yml").toPath(),
+                java.nio.file.attribute.PosixFilePermissions.fromString("rw-------")
+            )
+        }
     }
 
     fun reloadPluginConfiguration() {
