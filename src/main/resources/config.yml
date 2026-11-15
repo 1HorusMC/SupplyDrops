@@ -1,0 +1,109 @@
+# Configuración de HorusSupplyDrops
+
+# Intervalo automático en minutos entre cada Supply Drop (0 o menor para desactivar)
+interval-minutes: 30
+
+# Duración en segundos antes de que el Supply Drop desaparezca si no ha sido vaciado
+duration-seconds: 300
+
+# Permitir múltiples Supply Drops activos simultáneamente
+allow-multiple: false
+
+# Desaparecer automáticamente cuando el cofre/barril queda vacío al cerrarlo
+despawn-when-empty: true
+
+# Tipo de contenedor: CHEST o BARREL
+container-type: CHEST
+
+# Número de ítems aleatorios a generar por Supply Drop
+loot:
+  min-items: 3
+  max-items: 6
+  allow-duplicates: false
+
+# Configuración del área donde caerá el Supply Drop
+area:
+  # Modos disponibles: COORDINATES o WORLDGUARD
+  mode: COORDINATES
+  world: "world"
+
+  # Usado en modo COORDINATES (y como respaldo si WorldGuard no está disponible)
+  coordinates:
+    min-x: -500
+    max-x: 500
+    min-z: -500
+    max-z: 500
+
+  # Usado en modo WORLDGUARD
+  worldguard:
+    region-name: "pvp_arena"
+
+  # Intentos máximos para encontrar una superficie segura (no agua, lava ni aire)
+  max-location-attempts: 30
+  avoid-liquids: true
+  avoid-leaves: true
+
+# Efectos visuales
+visuals:
+  # Rayo visual inofensivo al aparecer el cofre
+  lightning-on-spawn: true
+
+  # Partículas constantes alrededor del cofre
+  particles:
+    enabled: true
+    type: "TOTEM_OF_UNDYING"
+    count: 10
+    interval-ticks: 10
+    radius: 0.8
+
+  # Rayo/columna vertical de partículas hacia el cielo para localizarlo desde lejos
+  beam:
+    enabled: true
+    particle: "END_ROD"
+    height: 30
+    step: 1.0
+    interval-ticks: 10
+
+  # Holograma nativo 1.21+ usando TextDisplay (sin dependencias externas)
+  hologram:
+    enabled: true
+    height-offset: 1.65
+    see-through: false
+    shadow: true
+    # Color de fondo en formato ARGB hexadecimal (#AARRGGBB) o "NONE" para transparente
+    background-color: "#66000000"
+    lines:
+      - "<gradient:#ffaa00:#ff5500><bold>✦ SUPPLY DROP ✦</bold></gradient>"
+      - "<gray>Estado: <green>¡DISPONIBLE!"
+      - "<gray>Desaparece en: <yellow>{time}"
+
+# Mensajes en el chat (formato MiniMessage)
+messages:
+  prefix: "<gradient:#ffaa00:#ff5500><bold>[SupplyDrops]</bold></gradient> "
+  spawn-broadcast:
+    - ""
+    - "<gradient:#ffaa00:#ff5500><bold>✦ ¡UN SUPPLY DROP HA CAÍDO! ✦</bold></gradient>"
+    - "<gray>Mundo: <white>{world} <dark_gray>| <gray>Coordenadas: <yellow>X: {x}, Y: {y}, Z: {z}"
+    - "<gray>Tiempo restante: <aqua>{time}"
+    - ""
+  claimed-broadcast: "{prefix}<green>¡<yellow>{player}</yellow> ha saqueado el Supply Drop en <white>{x}, {y}, {z}</white>!"
+  expired-broadcast: "{prefix}<red>El Supply Drop en <white>{x}, {y}, {z}</white> ha expirado y desaparecido."
+  command-no-permission: "{prefix}<red>No tienes permiso para usar este comando."
+  command-usage: "{prefix}<gray>Uso: <yellow>/supplydrop <start|stop|reload>"
+  command-started: "{prefix}<green>Supply Drop generado en <white>{world} ({x}, {y}, {z})<green>."
+  command-start-failed: "{prefix}<red>No se pudo generar el Supply Drop. Revisa el mundo, la región o si ya hay uno activo."
+  command-stopped: "{prefix}<yellow>Se han detenido <white>{count}</white> Supply Drop(s) activo(s)."
+  command-none-active: "{prefix}<gray>No hay ningún Supply Drop activo en este momento."
+  command-reloaded: "{prefix}<green>Configuración y loot recargados correctamente."
+
+# Webhook opcional de Discord
+discord:
+  enabled: false
+  webhook-url: ""
+  username: "HorusSupplyDrops"
+  avatar-url: ""
+  embed:
+    title: "✦ ¡Nuevo Supply Drop! ✦"
+    description: "Un suministro aéreo ha aterrizado en **{world}**.\n\n**Coordenadas:** `X: {x}, Y: {y}, Z: {z}`\n**Tiempo disponible:** `{time}`"
+    color: "#FFAA00"
+    footer: "HorusSupplyDrops"
