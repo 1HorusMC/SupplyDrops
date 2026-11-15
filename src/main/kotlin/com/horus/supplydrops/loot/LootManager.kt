@@ -41,7 +41,7 @@ data class LootEntry(
             random.nextInt(minAmount.coerceAtLeast(1), maxAmount + 1)
         }
 
-        val item = ItemStack(material, amount)
+        val item = ItemStack(material, amount.coerceAtMost(material.maxStackSize.coerceAtLeast(1)))
         val meta = item.itemMeta ?: return item
 
         if (!name.isNullOrBlank()) {
