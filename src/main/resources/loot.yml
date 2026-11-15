@@ -1,0 +1,88 @@
+# Configuración de loot para HorusSupplyDrops
+# Cada entrada soporta:
+#   material: Material de Bukkit (ej. DIAMOND_SWORD, GOLDEN_APPLE, NETHERITE_INGOT)
+#   min-amount / max-amount: Rango de cantidad (o usar "amount" para cantidad fija)
+#   weight: Peso relativo para la selección aleatoria ponderada (mayor = más probable)
+#   chance: Probabilidad en porcentaje (0.0 a 100.0) de que el ítem sea elegible en el sorteo (por defecto 100.0)
+#   guaranteed: Si es true, este ítem siempre aparecerá si pasa su "chance" (por defecto false)
+#   name: Nombre personalizado en formato MiniMessage (opcional)
+#   lore: Lista de líneas de descripción en formato MiniMessage (opcional)
+#   custom-model-data: Entero para CustomModelData (opcional)
+#   unbreakable: true/false (opcional)
+#   glow: true/false - fuerza brillo de encantamiento (opcional)
+#   enchantments: Mapa de encantamiento -> nivel (ej. sharpness: 5, unbreaking: 3)
+
+items:
+  espada_horus:
+    material: NETHERITE_SWORD
+    amount: 1
+    weight: 10
+    chance: 45.0
+    name: "<gradient:#ffaa00:#ff5500><bold>Espada de Horus</bold></gradient>"
+    lore:
+      - "<gray>Forjada en el sol eterno."
+      - "<dark_gray>Loot exclusivo de Supply Drop"
+    custom-model-data: 1001
+    unbreakable: true
+    enchantments:
+      sharpness: 5
+      fire_aspect: 2
+      unbreaking: 3
+
+  manzanas_doradas:
+    material: GOLDEN_APPLE
+    min-amount: 3
+    max-amount: 8
+    weight: 30
+    chance: 100.0
+    name: "<gold>Manzana Solar"
+    lore:
+      - "<gray>Restaura tu vitalidad en combate."
+
+  manzana_encantada:
+    material: ENCHANTED_GOLDEN_APPLE
+    min-amount: 1
+    max-amount: 2
+    weight: 8
+    chance: 35.0
+    glow: true
+
+  lingotes_netherite:
+    material: NETHERITE_INGOT
+    min-amount: 1
+    max-amount: 3
+    weight: 15
+    chance: 60.0
+
+  diamantes:
+    material: DIAMOND
+    min-amount: 6
+    max-amount: 16
+    weight: 35
+    chance: 100.0
+
+  perlas_ender:
+    material: ENDER_PEARL
+    min-amount: 4
+    max-amount: 12
+    weight: 28
+    chance: 90.0
+
+  arco_solar:
+    material: BOW
+    amount: 1
+    weight: 14
+    chance: 50.0
+    name: "<yellow><bold>Arco del Desierto</bold>"
+    custom-model-data: 1002
+    enchantments:
+      power: 5
+      flame: 1
+      infinity: 1
+      unbreaking: 3
+
+  totem:
+    material: TOTEM_OF_UNDYING
+    amount: 1
+    weight: 12
+    chance: 40.0
