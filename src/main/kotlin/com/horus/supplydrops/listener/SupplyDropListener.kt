@@ -35,11 +35,16 @@ class SupplyDropListener(
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     fun onBlockBreak(event: BlockBreakEvent) {
         val drop = manager.findDropAt(event.block.location) ?: return
+        // Prevent griefing: only admins may destroy a drop (destroying it deletes the loot).
+        if (!event.player.hasPermission("horussupplydrops.admin")) {
+            event.isCancelled = true
+            return
+        }
         event.isDropItems = false
-        manager.despawnDrop(drop, expired = false, claimedBy = event.player.name)
+        manager.despawnDrop(drop, expired = false, claimedBy = null)
     }
 
     @EventHandler(ignoreCancelled = true)
