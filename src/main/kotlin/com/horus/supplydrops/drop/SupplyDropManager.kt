@@ -231,7 +231,7 @@ class SupplyDropManager(
             .replace("{z}", z.toString())
             .replace("{time}", formattedTime)
         if (playerName != null) {
-            result = result.replace("{player}", playerName)
+            result = result.replace("{player}", MiniMessage.miniMessage().escapeTags(playerName))
         }
         return result
     }
