@@ -1,11 +1,11 @@
 # 📦 HorusSupplyDrops
 
 [![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://adoptium.net/)
-[![Paper](https://img.shields.io/badge/Paper-1.21.11-blue.svg)](https://papermc.io/)
+[![Paper](https://img.shields.io/badge/Minecraft-1.20.5%20--%2026.3-blue.svg)](https://papermc.io/)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-purple.svg)](https://kotlinlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Plugin moderno de **Supply Drops (cajas de suministros aéreos)** desarrollado en Kotlin para servidores **Paper / Leaf 1.21.11**. Incluye soporte para hologramas nativos (`TextDisplay`), áreas coordenadas o regiones de WorldGuard, sistema avanzado de loot ponderado con MiniMessage y notificaciones por chat y Discord Webhooks.
+Plugin moderno de **Supply Drops (cajas de suministros aéreos)** desarrollado en Kotlin para servidores **Paper / Purpur / Leaf (1.20.5 – 26.3)**. Incluye soporte para hologramas nativos (`TextDisplay`), áreas coordenadas o regiones de WorldGuard, sistema avanzado de loot ponderado con MiniMessage y notificaciones por chat y Discord Webhooks.
 
 ---
 
@@ -36,11 +36,12 @@ Plugin moderno de **Supply Drops (cajas de suministros aéreos)** desarrollado e
 
 ---
 
-## 📋 Requisitos
+## 📋 Requisitos y Dependencias
 
 - **Java**: JDK / JRE 21 o superior.
-- **Servidor**: Paper, Purpur o Leaf 1.21.11.
-- *(Opcional)* **WorldGuard 7+** (y WorldEdit) para selección de áreas por regiones.
+- **Servidor**: Paper, Purpur o Leaf **1.20.5 – 26.3** (desde la primera versión de Minecraft con Java 21 hasta la 26.3).
+- **Dependencias obligatorias**: **Ninguna.** El plugin es autónomo (incluye su propio sistema de hologramas nativos con `TextDisplay` y no requiere plugins externos ni librerías adicionales).
+- **Dependencias opcionales (`softdepend`)**: **WorldGuard 7+** (junto a WorldEdit), únicamente necesario si configuras `area.mode: WORLDGUARD`.
 
 ---
 

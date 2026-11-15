@@ -1,7 +1,7 @@
 name: HorusSupplyDrops
 version: '${version}'
 main: com.horus.supplydrops.HorusSupplyDropsPlugin
-api-version: '1.21'
+api-version: '1.20.5'
 authors: [Horus]
 description: Supply drops configurables con hologramas nativos TextDisplay, loot ponderado, WorldGuard y Discord Webhook.
 softdepend: [WorldGuard]

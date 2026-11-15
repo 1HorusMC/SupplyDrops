@@ -1,12 +1,11 @@
 package com.horus.supplydrops.loot
 
 import com.horus.supplydrops.config.LootSettings
-import io.papermc.paper.registry.RegistryAccess
-import io.papermc.paper.registry.RegistryKey
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.Registry
 import org.bukkit.configuration.ConfigurationSection
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.enchantments.Enchantment
@@ -205,8 +204,6 @@ class LootManager(
             NamespacedKey.minecraft(normalized)
         } ?: return null
 
-        return RegistryAccess.registryAccess()
-            .getRegistry(RegistryKey.ENCHANTMENT)
-            .get(key)
+        return Registry.ENCHANTMENT.get(key)
     }
 }
