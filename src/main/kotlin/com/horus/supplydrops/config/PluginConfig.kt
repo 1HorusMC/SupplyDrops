@@ -121,7 +121,7 @@ data class PluginConfig(
 
             val loot = LootSettings(
                 minItems = config.getInt("loot.min-items", 3).coerceAtLeast(0),
-                maxItems = config.getInt("loot.max-items", 6).coerceAtLeast(1),
+                maxItems = config.getInt("loot.max-items", 6).coerceIn(1, 54),
                 allowDuplicates = config.getBoolean("loot.allow-duplicates", false)
             )
 
@@ -135,7 +135,7 @@ data class PluginConfig(
                     maxZ = config.getInt("area.coordinates.max-z", 500)
                 ),
                 worldGuardRegion = config.getString("area.worldguard.region-name", "pvp_arena") ?: "pvp_arena",
-                maxLocationAttempts = config.getInt("area.max-location-attempts", 30).coerceAtLeast(1),
+                maxLocationAttempts = config.getInt("area.max-location-attempts", 30).coerceIn(1, 100),
                 avoidLiquids = config.getBoolean("area.avoid-liquids", true),
                 avoidLeaves = config.getBoolean("area.avoid-leaves", true)
             )
@@ -143,7 +143,7 @@ data class PluginConfig(
             val particles = ParticleSettings(
                 enabled = config.getBoolean("visuals.particles.enabled", true),
                 type = parseParticle(config.getString("visuals.particles.type"), Particle.TOTEM_OF_UNDYING),
-                count = config.getInt("visuals.particles.count", 10).coerceAtLeast(1),
+                count = config.getInt("visuals.particles.count", 10).coerceIn(1, 200),
                 intervalTicks = config.getLong("visuals.particles.interval-ticks", 10L).coerceAtLeast(1L),
                 radius = config.getDouble("visuals.particles.radius", 0.8).coerceAtLeast(0.1)
             )
@@ -151,8 +151,8 @@ data class PluginConfig(
             val beam = BeamSettings(
                 enabled = config.getBoolean("visuals.beam.enabled", true),
                 particle = parseParticle(config.getString("visuals.beam.particle"), Particle.END_ROD),
-                height = config.getInt("visuals.beam.height", 30).coerceAtLeast(1),
-                step = config.getDouble("visuals.beam.step", 1.0).coerceAtLeast(0.25),
+                height = config.getInt("visuals.beam.height", 30).coerceIn(1, 128),
+                step = config.getDouble("visuals.beam.step", 1.0).coerceAtLeast(0.5),
                 intervalTicks = config.getLong("visuals.beam.interval-ticks", 10L).coerceAtLeast(1L)
             )
 
